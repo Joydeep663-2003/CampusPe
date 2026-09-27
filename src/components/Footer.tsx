@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   GraduationCap,
   Mail,
   Phone,
-  Send,
-  CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import { ModalType } from "./Modal";
 
@@ -17,243 +16,240 @@ interface FooterProps {
 }
 
 export default function Footer({ onOpenModal, onShowToast }: FooterProps) {
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    setSubscribed(true);
-    onShowToast("Subscribed to the CampusPe Placement & College newsletter!");
-    setNewsletterEmail("");
-  };
-
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <footer className="bg-white text-slate-600 pt-16 pb-12 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main 6-column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-slate-800">
-          {/* Brand Column (Span 2 on large screens) */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20">
-                <GraduationCap className="w-5 h-5" />
+        {/* Main Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-100">
+          {/* Brand Column (Span 4) */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="/" className="inline-flex flex-col group cursor-pointer">
+              <div className="flex items-center gap-1.5">
+                <span className="text-2xl font-black text-sky-600 tracking-tight font-sans">
+                  Campus<span className="text-sky-600 relative">Pe<GraduationCap className="w-4 h-4 text-sky-500 absolute -top-2.5 -right-2 transform rotate-12" /></span>
+                </span>
               </div>
-              <div className="flex items-baseline tracking-tight">
-                <span className="text-xl font-black text-white font-sans">Campus</span>
-                <span className="text-xl font-black text-sky-400 font-sans">Pe</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 ml-0.5 inline-block"></span>
-              </div>
+              <span className="text-[9px] text-slate-400 font-medium tracking-tight -mt-0.5">
+                — Connecting Students, Institutions & Companies —
+              </span>
             </Link>
 
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              From choosing colleges to finding jobs to mentorship. CampusPe connects students,
-              colleges, and employers in one place.
-            </p>
-
-            <div className="space-y-2 pt-1 text-xs text-slate-400">
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-sky-400 shrink-0" />
-                <a href="mailto:support@campuspe.com" className="hover:text-white transition-colors">
-                  support@campuspe.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-sky-400 shrink-0" />
-                <a href="tel:+918045678900" className="hover:text-white transition-colors">
-                  +91 80 4567 8900
-                </a>
-              </div>
-            </div>
-
-            {/* Newsletter input */}
-            <div className="pt-2 max-w-sm">
-              <span className="text-xs font-semibold text-slate-300 block mb-2">
-                Subscribe to Placement Insights:
-              </span>
-              <form onSubmit={handleSubscribe} className="flex gap-2">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500"
-                />
-                <button
-                  type="submit"
-                  className="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-semibold shrink-0 transition-colors flex items-center gap-1 cursor-pointer"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                </button>
-              </form>
-              {subscribed && (
-                <span className="text-[11px] text-emerald-400 mt-1 block flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3" /> Subscribed successfully!
-                </span>
-              )}
+            <div className="space-y-2 text-xs text-slate-500 leading-relaxed max-w-sm">
+              <p className="font-semibold text-slate-700">
+                From choosing a college to finding your next opportunity.
+              </p>
+              <p>
+                CampusPe connects students, colleges and employers in one place.
+              </p>
             </div>
           </div>
 
           {/* Column 1: For Students */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight">
               For Students
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#opportunities" className="text-slate-400 hover:text-white transition-colors">
-                  Search Colleges
+                <a href="#colleges" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Explore Colleges
                 </a>
               </li>
               <li>
-                <a href="#opportunities" className="text-slate-400 hover:text-white transition-colors">
-                  Find Internships
+                <a href="#opportunities" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Find Opportunities
                 </a>
               </li>
               <li>
-                <a href="#resume-parser" className="text-slate-400 hover:text-white transition-colors">
-                  ATS Resume Builder
+                <a href="#opportunities" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Internships
+                </a>
+              </li>
+              <li>
+                <a href="#opportunities" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Full-time Jobs
+                </a>
+              </li>
+              <li>
+                <a href="#opportunities" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Part-time & Gig
                 </a>
               </li>
               <li>
                 <button
                   onClick={() => onOpenModal("sign-up")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
+                  className="text-slate-500 hover:text-sky-600 transition-colors text-left cursor-pointer"
                 >
-                  Placement Drives
+                  Application Tracker
                 </button>
-              </li>
-              <li>
-                <a href="#app-showcase" className="text-slate-400 hover:text-white transition-colors">
-                  Student Community
-                </a>
               </li>
             </ul>
           </div>
 
           {/* Column 2: For Colleges */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight">
               For Colleges
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
                   onClick={() => onOpenModal("list-college")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
+                  className="text-slate-500 hover:text-sky-600 transition-colors text-left cursor-pointer"
                 >
                   List Your College
                 </button>
               </li>
               <li>
-                <a href="#colleges" className="text-slate-400 hover:text-white transition-colors">
-                  Drive Management
+                <a href="#colleges" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Admissions
                 </a>
               </li>
               <li>
-                <a href="#colleges" className="text-slate-400 hover:text-white transition-colors">
-                  Placement Analytics
+                <a href="#colleges" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Fee Collection
                 </a>
               </li>
               <li>
-                <a href="#colleges" className="text-slate-400 hover:text-white transition-colors">
-                  NIRF Data Portal
+                <a href="#colleges" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Placements
                 </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => onOpenModal("schedule-demo")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
-                >
-                  College Partners
-                </button>
               </li>
             </ul>
           </div>
 
           {/* Column 3: For Employers */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+          <div className="lg:col-span-1 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight">
               For Employers
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
                   onClick={() => onOpenModal("start-hiring")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
+                  className="text-slate-500 hover:text-sky-600 transition-colors text-left cursor-pointer"
                 >
-                  Post a Job / Drive
+                  Post a Job
                 </button>
               </li>
               <li>
-                <a href="#employers" className="text-slate-400 hover:text-white transition-colors">
-                  Hire Freshers
+                <a href="#employers" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Find Talent
                 </a>
               </li>
               <li>
-                <a href="#employers" className="text-slate-400 hover:text-white transition-colors">
-                  Campus Solutions
+                <a href="#employers" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Campus Hiring
                 </a>
-              </li>
-              <li>
-                <a href="#employers" className="text-slate-400 hover:text-white transition-colors">
-                  Standardized Tests
-                </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => onOpenModal("schedule-demo")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
-                >
-                  Enterprise Pricing
-                </button>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Company & Legal */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Company & Legal
+          {/* Column 4: Company */}
+          <div className="lg:col-span-1 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight">
+              Company
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#about" className="text-slate-400 hover:text-white transition-colors">
-                  About CampusPe
-                </a>
-              </li>
-              <li>
-                <a href="#careers" className="text-slate-400 hover:text-white transition-colors">
-                  Careers (We&apos;re Hiring!)
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  About Us
                 </a>
               </li>
               <li>
                 <button
                   onClick={() => onOpenModal("contact-support")}
-                  className="text-slate-400 hover:text-white transition-colors text-left"
+                  className="text-slate-500 hover:text-sky-600 transition-colors text-left cursor-pointer"
                 >
-                  Help & Support
+                  Contact Us
                 </button>
               </li>
               <li>
-                <a href="#privacy" className="text-slate-400 hover:text-white transition-colors">
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Blogs
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Careers
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Legal & Policies */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight">
+              Legal & Policies
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#terms" className="text-slate-400 hover:text-white transition-colors">
-                  Terms of Service
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Terms & Conditions
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Refund & Cancellation Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Cookie Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Grievance Redressal
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-sky-600 transition-colors">
+                  Job & Internship Disclaimer
+                </a>
+              </li>
+              <li className="pt-1">
+                <a href="#" className="text-sky-600 font-semibold hover:underline flex items-center gap-1">
+                  <span>View all policies</span>
+                  <ArrowRight className="w-3 h-3" />
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Copyright & Socials */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        {/* Contact Info Strip (Exact match from Figma) */}
+        <div className="py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Mail className="w-3.5 h-3.5 text-sky-600" />
+              <a href="mailto:contactus@campuspe.com" className="hover:text-sky-600 font-medium">
+                contactus@campuspe.com
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-3.5 h-3.5 text-sky-600" />
+              <a href="tel:+916362606464" className="hover:text-sky-600 font-medium">
+                +91 6362606464
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-slate-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+            <span>Students · Colleges · Employers</span>
+          </div>
+        </div>
+
+        {/* Bottom Bar: Copyright & Socials */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
-            © 2026 CampusPe Technologies Pvt. Ltd. All rights reserved.
+            © 2026 CampusPe Technologies Pvt. Ltd. · Privacy · Terms · Grievance
           </div>
 
           <div className="flex items-center gap-4 text-slate-400">
@@ -262,24 +258,11 @@ export default function Footer({ onOpenModal, onShowToast }: FooterProps) {
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
+              className="hover:text-sky-600 transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-              </svg>
-            </a>
-
-            {/* X / Twitter */}
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
-              aria-label="X Twitter"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
 
@@ -288,7 +271,7 @@ export default function Footer({ onOpenModal, onShowToast }: FooterProps) {
               href="https://instagram.com"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
+              className="hover:text-sky-600 transition-colors"
               aria-label="Instagram"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -296,29 +279,29 @@ export default function Footer({ onOpenModal, onShowToast }: FooterProps) {
               </svg>
             </a>
 
-            {/* YouTube */}
+            {/* X / Twitter */}
             <a
-              href="https://youtube.com"
+              href="https://twitter.com"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
-              aria-label="YouTube"
+              className="hover:text-sky-600 transition-colors"
+              aria-label="X Twitter"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
 
-            {/* GitHub */}
+            {/* WhatsApp */}
             <a
-              href="https://github.com"
+              href="https://whatsapp.com"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
-              aria-label="GitHub"
+              className="hover:text-sky-600 transition-colors"
+              aria-label="WhatsApp"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24m4.52 11.51c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.01-1.24-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8 2.53 1.09 2.53.73 2.98.69.46-.04 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
               </svg>
             </a>
           </div>

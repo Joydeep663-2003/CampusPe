@@ -39,15 +39,15 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
-              <GraduationCap className="w-5 h-5" />
+          <Link href="/" className="flex flex-col group cursor-pointer">
+            <div className="flex items-center gap-1.5">
+              <span className="text-2xl font-black text-sky-600 tracking-tight font-sans">
+                Campus<span className="text-sky-600 relative">Pe<GraduationCap className="w-4 h-4 text-sky-500 absolute -top-2.5 -right-2 transform rotate-12" /></span>
+              </span>
             </div>
-            <div className="flex items-baseline tracking-tight">
-              <span className="text-xl font-black text-slate-900 font-sans">Campus</span>
-              <span className="text-xl font-black text-sky-600 font-sans">Pe</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-500 ml-0.5 inline-block"></span>
-            </div>
+            <span className="text-[9px] text-slate-400 font-medium tracking-tight -mt-0.5 hidden sm:inline-block">
+              — Connecting Students, Institutions & Companies —
+            </span>
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -56,7 +56,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors duration-150 relative group"
+                className="text-sm font-medium text-slate-700 hover:text-sky-600 transition-colors duration-150 relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 rounded-full transition-all duration-200 group-hover:w-full" />
@@ -65,19 +65,18 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-5">
             <button
               onClick={() => onOpenModal("sign-in")}
-              className="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-sky-600 transition-colors cursor-pointer"
+              className="text-sm font-semibold text-slate-700 hover:text-sky-600 transition-colors cursor-pointer"
             >
               Sign In
             </button>
             <button
               onClick={() => onOpenModal("sign-up")}
-              className="px-5 py-2 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 active:scale-95 rounded-full shadow-sm hover:shadow-md hover:shadow-sky-500/20 transition-all duration-200 flex items-center gap-1.5 cursor-pointer"
+              className="px-6 py-2 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 active:scale-95 rounded-full shadow-sm hover:shadow-md hover:shadow-sky-500/25 transition-all duration-200 cursor-pointer"
             >
-              <span>Sign Up</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              Sign Up
             </button>
           </div>
 

@@ -2,14 +2,13 @@
 
 import React, { useState, useRef } from "react";
 import {
+  Upload,
+  Check,
   FileText,
-  UploadCloud,
-  CheckCircle2,
-  Sparkles,
   Zap,
   ArrowRight,
   ShieldCheck,
-  Award,
+  CheckCircle2,
   RefreshCw,
 } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -29,7 +28,7 @@ export default function ResumeSection() {
 
   const simulateParse = (name: string) => {
     setIsUploading(true);
-    setUploadProgress(15);
+    setUploadProgress(20);
     setParsedData(null);
 
     const interval = setInterval(() => {
@@ -40,9 +39,9 @@ export default function ResumeSection() {
             setIsUploading(false);
             setParsedData({
               fileName: name,
-              atsScore: 94,
-              skills: ["React.js", "TypeScript", "Next.js", "Tailwind CSS", "REST APIs", "Git"],
-              topMatch: "Frontend Engineer (98% match)",
+              atsScore: 98,
+              skills: ["React.js", "TypeScript", "Next.js", "Tailwind CSS", "REST APIs", "Python"],
+              topMatch: "Fullstack / Frontend Engineer (98% match)",
             });
             try {
               confetti({
@@ -53,12 +52,12 @@ export default function ResumeSection() {
             } catch (e) {
               // ignore
             }
-          }, 400);
+          }, 300);
           return 100;
         }
-        return prev + 25;
+        return prev + 30;
       });
-    }, 200);
+    }, 180);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,33 +82,27 @@ export default function ResumeSection() {
   };
 
   return (
-    <section id="resume-parser" className="py-24 bg-white relative overflow-hidden">
-      {/* Background radial gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-sky-100/40 rounded-full blur-3xl -z-10 pointer-events-none" />
+    <section id="resume-parser" className="py-20 bg-white relative overflow-hidden">
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[350px] bg-sky-50/80 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Top Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200/80 text-sky-800 text-xs font-bold uppercase tracking-wider mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-          <span>Smart AI Resume Parser</span>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Upload Container Box */}
+        <div className="relative bg-gradient-to-b from-sky-50/40 via-white to-sky-50/20 rounded-3xl p-8 sm:p-12 border-2 border-dashed border-sky-300 text-center shadow-xs">
+          {/* Top-Left Floating Tag */}
+          <div className="absolute -top-3.5 left-6 bg-white px-3 py-1 rounded-full border border-sky-200 shadow-xs flex items-center gap-1.5 text-xs">
+            <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">⚡</span>
+            <span className="font-bold text-slate-800">98% Match Rate</span>
+            <span className="text-slate-400 text-[10px] hidden sm:inline">• AI semantic rank</span>
+          </div>
 
-        {/* Heading & Subtitle */}
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-2xl mx-auto">
-          Upload your resume.
-          <br />
-          <span className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            Find jobs that fit.
-          </span>
-        </h2>
+          {/* Bottom-Right Floating Tag */}
+          <div className="absolute -bottom-3.5 right-6 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-xs flex items-center gap-1.5 text-xs">
+            <FileText className="w-3.5 h-3.5 text-amber-500" />
+            <span className="font-bold text-slate-800">ATS Compliant</span>
+            <span className="text-slate-400 text-[10px] hidden sm:inline">• Standardized parser</span>
+          </div>
 
-        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-4 font-normal">
-          Upload your resume and let our AI parser extract your skills, experience, and certifications.
-          Get matched instantly across 1,000+ verified campus opportunities.
-        </p>
-
-        {/* Interactive Resume Upload Box */}
-        <div className="mt-10 max-w-2xl mx-auto">
           <input
             type="file"
             ref={fileInputRef}
@@ -126,52 +119,57 @@ export default function ResumeSection() {
               }}
               onDragLeave={() => setIsDragging(false)}
               onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-              className={`p-10 rounded-3xl border-2 border-dashed transition-all duration-300 cursor-pointer text-center relative group bg-gradient-to-b from-sky-50/40 to-white ${
-                isDragging
-                  ? "border-sky-500 bg-sky-50/80 scale-[1.01]"
-                  : "border-sky-300/80 hover:border-sky-500 hover:shadow-xl hover:shadow-sky-500/10"
+              className={`transition-all duration-200 ${
+                isDragging ? "scale-[1.01]" : ""
               }`}
             >
-              <div className="w-16 h-16 rounded-2xl bg-sky-100/80 group-hover:bg-sky-600 text-sky-600 group-hover:text-white flex items-center justify-center mx-auto mb-4 transition-colors duration-200 shadow-sm">
-                <UploadCloud className="w-8 h-8" />
-              </div>
-
-              <h3 className="text-lg font-bold text-slate-900 mb-1">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
                 Upload your resume
               </h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto mb-6">
-                Drag and drop your file here, or click to browse from your device.
+              <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mb-6">
+                PDF, DOC, or DOCX • Up to 10MB • We&apos;ll use it to understand your skills and experience.
               </p>
 
+              {/* Upload Button */}
               <button
                 type="button"
-                className="px-6 py-2.5 rounded-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-md shadow-sky-500/25 active:scale-95 transition-all inline-flex items-center gap-2"
+                onClick={() => fileInputRef.current?.click()}
+                className="px-6 py-2.5 rounded-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs sm:text-sm shadow-md shadow-sky-500/25 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
               >
-                <span>Browse Resume</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Upload resume</span>
+                <Upload className="w-4 h-4" />
               </button>
 
-              <div className="text-[11px] text-slate-400 mt-4">
-                Supported formats: PDF, DOCX, DOC • Max size: 10MB
+              <div className="text-xs text-slate-400 mt-4 mb-3">
+                or drag and drop your file here
+              </div>
+
+              {/* Supported format badges */}
+              <div className="flex items-center justify-center gap-2">
+                <span className="px-2 py-0.5 rounded text-[11px] font-bold text-sky-600 bg-sky-50 border border-sky-200">
+                  PDF
+                </span>
+                <span className="px-2 py-0.5 rounded text-[11px] font-bold text-sky-600 bg-sky-50 border border-sky-200">
+                  DOC
+                </span>
+                <span className="px-2 py-0.5 rounded text-[11px] font-bold text-sky-600 bg-sky-50 border border-sky-200">
+                  DOCX
+                </span>
               </div>
             </div>
           )}
 
           {isUploading && (
-            <div className="p-8 rounded-3xl border border-sky-200 bg-white shadow-xl text-center space-y-4">
-              <div className="w-12 h-12 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center mx-auto animate-spin">
-                <RefreshCw className="w-6 h-6" />
+            <div className="space-y-4 py-4">
+              <div className="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center mx-auto animate-spin">
+                <RefreshCw className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-slate-800 text-base">
-                Analyzing resume with AI Engine...
+              <h4 className="font-bold text-slate-800 text-sm">
+                Parsing resume with AI Engine...
               </h4>
-              <p className="text-xs text-slate-500">
-                Extracting technical skills, education credentials & project achievements
-              </p>
-              <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div className="w-64 max-w-full mx-auto bg-slate-100 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-sky-500 to-blue-600 h-2.5 rounded-full transition-all duration-300"
+                  className="bg-sky-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>
@@ -180,101 +178,82 @@ export default function ResumeSection() {
           )}
 
           {parsedData && (
-            <div className="p-6 sm:p-8 rounded-3xl border border-sky-300 bg-gradient-to-b from-sky-50/50 via-white to-white shadow-2xl text-left space-y-5 animate-fadeIn">
+            <div className="text-left space-y-4 max-w-lg mx-auto py-2 animate-fadeIn">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-sm text-slate-900">
-                      {parsedData.fileName}
-                    </h4>
-                    <p className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Successfully parsed & indexed
-                    </p>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                  <span className="text-xs font-bold text-slate-800">{parsedData.fileName}</span>
                 </div>
-
                 <button
                   onClick={resetUpload}
-                  className="text-xs text-slate-400 hover:text-slate-600 font-medium px-2 py-1 rounded-md hover:bg-slate-100"
+                  className="text-xs text-sky-600 hover:underline cursor-pointer"
                 >
-                  Upload Another
+                  Change file
                 </button>
               </div>
 
-              {/* ATS Score & Match Rate */}
-              <div className="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
-                <div>
-                  <div className="text-[11px] font-semibold text-slate-500 uppercase">
-                    AI ATS Match Score
-                  </div>
-                  <div className="text-2xl font-black text-sky-600 flex items-baseline gap-1 mt-0.5">
-                    {parsedData.atsScore}
-                    <span className="text-xs text-slate-400 font-normal">/ 100</span>
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[11px] font-semibold text-slate-500 uppercase">
-                    Top Career Match
-                  </div>
-                  <div className="text-xs font-bold text-slate-800 mt-1.5 flex items-center gap-1">
-                    <Zap className="w-3.5 h-3.5 text-amber-500" />
-                    {parsedData.topMatch}
-                  </div>
-                </div>
-              </div>
-
-              {/* Detected Skills */}
-              <div>
-                <div className="text-xs font-bold text-slate-700 mb-2">
-                  Key Skills Detected by AI:
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {parsedData.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2.5 py-1 text-xs font-semibold bg-sky-100 text-sky-800 rounded-lg border border-sky-200"
-                    >
-                      {skill}
+              <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs">
+                <div className="font-bold text-slate-700 mb-1">Detected Skills:</div>
+                <div className="flex flex-wrap gap-1">
+                  {parsedData.skills.map((s) => (
+                    <span key={s} className="px-2 py-0.5 bg-sky-50 text-sky-700 rounded text-[11px] font-medium border border-sky-100">
+                      {s}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Action Button */}
               <a
                 href="#opportunities"
-                className="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 active:scale-98 transition-all"
+                className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
               >
-                <span>View 12 Instant Job Matches</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>View Matching Jobs</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>
           )}
         </div>
 
-        {/* 4 Feature Badges at Bottom */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-left">
-            <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
-            <span className="text-xs font-semibold text-slate-700">Automated Parsing</span>
+        {/* 4 Feature Badges in a Row (Exactly matching Figma) */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+          <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex items-start gap-2.5">
+            <span className="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </span>
+            <div>
+              <div className="text-xs font-bold text-slate-800">Resume analyzed</div>
+              <div className="text-[10px] text-emerald-600 font-medium">• Ready in 4s</div>
+            </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-left">
-            <Award className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span className="text-xs font-semibold text-slate-700">AI ATS Optimization</span>
+          <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex items-start gap-2.5">
+            <span className="w-5 h-5 rounded-md bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 mt-0.5">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </span>
+            <div>
+              <div className="text-xs font-bold text-slate-800">Skills matched</div>
+              <div className="text-[10px] text-slate-400">Deep taxonomy</div>
+            </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-left">
-            <Zap className="w-4 h-4 text-amber-600 shrink-0" />
-            <span className="text-xs font-semibold text-slate-700">Instant Match Score</span>
+          <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex items-start gap-2.5">
+            <span className="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 mt-0.5">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </span>
+            <div>
+              <div className="text-xs font-bold text-slate-800">Experience matched</div>
+              <div className="text-[10px] text-slate-400">Contextual seniority</div>
+            </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-left">
-            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0" />
-            <span className="text-xs font-semibold text-slate-700">Direct Recruiter Visibility</span>
+          <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex items-start gap-2.5">
+            <span className="w-5 h-5 rounded-md bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 mt-0.5">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </span>
+            <div>
+              <div className="text-xs font-bold text-slate-800">1,000+ sources searched</div>
+              <div className="text-[10px] text-slate-400">Real-time aggregators</div>
+            </div>
           </div>
         </div>
       </div>

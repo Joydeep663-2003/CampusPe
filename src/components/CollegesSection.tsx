@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GraduationCap, ArrowRight, Building, Users, CalendarCheck, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { ModalType } from "./Modal";
 
 interface CollegesSectionProps {
@@ -9,116 +9,103 @@ interface CollegesSectionProps {
 }
 
 export default function CollegesSection({ onOpenModal }: CollegesSectionProps) {
-  const features = [
-    {
-      title: "Build your college profile",
-      description:
-        "Showcase campus facilities, NIRF rankings, verified academic departments, and historical placement statistics to attract premier recruiters.",
-      badge: "Verified Profile",
-      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
-      icon: Building,
-      metric: "Rank #12 Regional NIRF",
-    },
-    {
-      title: "Recruiter discovery and outreach",
-      description:
-        "Enable tier-1 enterprise tech, core engineering, and startup recruiters across India to discover your talent pool and book placement slots directly.",
-      badge: "50+ Inquiries / Season",
-      badgeColor: "bg-sky-50 text-sky-700 border-sky-200/80",
-      icon: Users,
-      metric: "120+ Partner Companies",
-    },
-    {
-      title: "Streamline campus drives in real-time",
-      description:
-        "Manage end-to-end drive schedules, student eligibility filters, test proctoring, and automated offer letter generation without paper chaos.",
-      badge: "Zero Paperwork",
-      badgeColor: "bg-purple-50 text-purple-700 border-purple-200/80",
-      icon: CalendarCheck,
-      metric: "100% Digital Workflow",
-    },
-  ];
-
   return (
-    <section id="colleges" className="py-24 bg-slate-50/60 relative overflow-hidden border-t border-slate-100">
+    <section id="colleges" className="py-20 bg-slate-50/50 relative overflow-hidden border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/70 text-sky-800 text-xs font-bold uppercase tracking-wider">
-              <GraduationCap className="w-3.5 h-3.5 text-sky-600" />
-              <span>For College Admins</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-500 inline-block" />
+              <span>02 • FOR COLLEGES</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Get Discovered by{" "}
-              <span className="bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text text-transparent">
-                Students and Recruiters.
-              </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+              Get Discovered
+              <br />
+              by <span className="text-sky-600">Students and Recruiters.</span>
             </h2>
 
-            <p className="text-base text-slate-600 leading-relaxed font-normal">
-              Put your college in front of thousands of recruiters searching for top talent. Showcase
-              placement track records, student talent, and streamline campus hiring with zero administrative friction.
+            <p className="text-sm text-slate-600 leading-relaxed font-normal">
+              Put your college in front of students searching for the right course and recruiters looking for the right talent. CampusPe helps you build your presence, attract enquiries and connect with opportunities.
             </p>
 
             <div className="pt-2">
               <button
                 onClick={() => onOpenModal("list-college")}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm shadow-md shadow-sky-500/25 active:scale-95 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-sm hover:shadow-md hover:shadow-sky-500/25 active:scale-95 transition-all cursor-pointer"
               >
                 <span>List Your College</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
-          {/* Right Column: 3 Feature Showcase Cards */}
-          <div className="lg:col-span-7 space-y-4">
-            {features.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 group"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors duration-200">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-bold text-base text-slate-900 group-hover:text-sky-600 transition-colors">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <span
-                      className={`inline-block self-start sm:self-auto px-3 py-1 rounded-full text-xs font-semibold border ${item.badgeColor}`}
-                    >
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <p className="text-sm text-slate-600 leading-relaxed pl-0 sm:pl-13">
-                    {item.description}
-                  </p>
-
-                  <div className="mt-3.5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 pl-0 sm:pl-13">
-                    <span className="font-medium text-slate-700 flex items-center gap-1.5">
-                      <CheckCircle className="w-3.5 h-3.5 text-sky-500" />
-                      {item.metric}
-                    </span>
-                    <button
-                      onClick={() => onOpenModal("list-college")}
-                      className="text-sky-600 font-semibold hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>Explore features</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
-                  </div>
+          {/* Right Column: 3 Feature Cards */}
+          <div className="lg:col-span-7 space-y-3.5">
+            {/* Card 01 */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span className="text-xs font-bold text-slate-400">01 VERIFIED PROFILE</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    NAAC A++ Ready
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                    98% Match
+                  </span>
                 </div>
-              );
-            })}
+              </div>
+              <h3 className="text-base font-bold text-slate-900 mb-1">
+                Build your college profile
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Showcase your college, courses, fees, campus, placements and achievements in one structured profile that students and recruiters can discover.
+              </p>
+            </div>
+
+            {/* Card 02 */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span className="text-xs font-bold text-slate-400">02 DIRECT ENROLL</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                    Direct Enquiries
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                    <span>WHATSAPP / CHAT (Avg: &lt;15 min)</span>
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-base font-bold text-slate-900 mb-1">
+                Students discover and connect
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Students searching for colleges can discover your profile, explore your courses and fees, and connect directly with your admission team.
+              </p>
+            </div>
+
+            {/* Card 03 */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span className="text-xs font-bold text-slate-400">03 CAMPUS RECRUITING</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                    500+ Hiring Partners
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                    Connect Directly
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-base font-bold text-slate-900 mb-1">
+                Recruiters discover your College
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Recruiters looking for fresh talent can discover your college programs, student batches and initiate placement drives seamlessly.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,308 +1,249 @@
-﻿"use client";
+"use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import {
+  Search,
+  Bell,
+  GraduationCap,
+  Briefcase,
+  MapPin,
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  GraduationCap,
-  Briefcase,
-  Search,
-  Bell,
-  Download,
-  LayoutDashboard,
 } from "lucide-react";
 
-const screens = [
-  {
-    id: 0,
-    title: "Hero — Connect 10X Faster",
-    tagline: "AI-Powered Placement Assistant",
-    description: "The CampusPe landing experience for students, colleges & employers.",
-    badge: "Students",
-    badgeColor: "bg-sky-100 text-sky-700 border-sky-200",
-    icon: Briefcase,
-    src: "/slice_1.png",
-  },
-  {
-    id: 1,
-    title: "AI Match Engine & Opportunity Feed",
-    tagline: "Stop searching. Start getting matched.",
-    description: "Curated job opportunities matched algorithmically to your tech stack.",
-    badge: "AI Matching",
-    badgeColor: "bg-indigo-100 text-indigo-700 border-indigo-200",
-    icon: Sparkles,
-    src: "/slice_2.png",
-  },
-  {
-    id: 2,
-    title: "Smart AI Resume Parser",
-    tagline: "Upload your resume. Find jobs that fit.",
-    description: "AI extracts your skills and matches you instantly to 1,000+ opportunities.",
-    badge: "ATS AI",
-    badgeColor: "bg-emerald-100 text-emerald-700 border-emerald-200",
-    icon: Search,
-    src: "/slice_3.png",
-  },
-  {
-    id: 3,
-    title: "College & Employer Dashboard",
-    tagline: "Get Discovered by Students and Recruiters.",
-    description: "Colleges get recruiter discovery. Employers stop running manual campus drives.",
-    badge: "Colleges & Employers",
-    badgeColor: "bg-purple-100 text-purple-700 border-purple-200",
-    icon: GraduationCap,
-    src: "/slice_4.png",
-  },
-  {
-    id: 4,
-    title: "Mobile App Showcase",
-    tagline: "Checkout Our App Interface Look",
-    description: "Five real app screens showing the full student journey on mobile.",
-    badge: "Mobile App",
-    badgeColor: "bg-amber-100 text-amber-700 border-amber-200",
-    icon: LayoutDashboard,
-    src: "/slice_5.png",
-  },
-  {
-    id: 5,
-    title: "Download App & FAQ",
-    tagline: "Download on iOS & Android",
-    description: "Available on App Store & Google Play. Got questions? The FAQ has answers.",
-    badge: "Download",
-    badgeColor: "bg-teal-100 text-teal-700 border-teal-200",
-    icon: Download,
-    src: "/slice_6.png",
-  },
-  {
-    id: 6,
-    title: "Footer — Full Platform Map",
-    tagline: "Everything in one place",
-    description: "Links for Students, Colleges, Employers and Company info in a clean footer.",
-    badge: "Site Map",
-    badgeColor: "bg-slate-100 text-slate-700 border-slate-200",
-    icon: Bell,
-    src: "/slice_7.png",
-  },
-];
-
 export default function AppShowcase() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(2); // center phone default active
 
-  const goTo = useCallback(
-    (idx: number) => {
-      if (isAnimating) return;
-      setIsAnimating(true);
-      setActiveSlide(idx);
-      setTimeout(() => setIsAnimating(false), 400);
+  const phoneScreens = [
+    {
+      id: "screen-1",
+      title: "Discover Opportunities",
+      user: "Hi, Amit Kumar",
+      badge: "Student",
+      content: (
+        <div className="p-3 text-slate-800 text-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[10px] text-slate-400">Welcome back</div>
+              <div className="font-bold text-xs">Hi, Amit Kumar</div>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600">
+              <Bell className="w-3 h-3" />
+            </div>
+          </div>
+          <div className="bg-sky-50 p-2.5 rounded-xl border border-sky-100 text-[11px]">
+            <span className="font-bold text-sky-700 block">See how you can find a job quickly!</span>
+            <span className="text-[10px] text-slate-500">AI resume match active</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1.5 rounded-lg text-[10px] text-slate-400">
+            <Search className="w-3 h-3" /> Search jobs, internships...
+          </div>
+          <div>
+            <div className="text-[10px] font-bold text-slate-700 mb-1.5">Recommended Jobs</div>
+            <div className="p-2 bg-white rounded-lg border border-slate-100 shadow-2xs space-y-1">
+              <div className="font-bold text-[11px] text-slate-900">Software Engineer</div>
+              <div className="text-[9px] text-slate-400">Swiggy • Bangalore • ₹14 LPA</div>
+            </div>
+          </div>
+        </div>
+      ),
     },
-    [isAnimating]
-  );
-
-  const handlePrev = useCallback(() => {
-    goTo(activeSlide === 0 ? screens.length - 1 : activeSlide - 1);
-  }, [activeSlide, goTo]);
-
-  const handleNext = useCallback(() => {
-    goTo(activeSlide === screens.length - 1 ? 0 : activeSlide + 1);
-  }, [activeSlide, goTo]);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev === screens.length - 1 ? 0 : prev + 1));
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") handlePrev();
-      else if (e.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [handlePrev, handleNext]);
-
-  const current = screens[activeSlide];
-  const Icon = current.icon;
+    {
+      id: "screen-2",
+      title: "Post a Job",
+      user: "Recruiter Portal",
+      badge: "Recruiter",
+      content: (
+        <div className="p-3 text-slate-800 text-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div className="font-bold text-xs">Post a Job</div>
+            <span className="text-[9px] bg-emerald-50 text-emerald-600 font-bold px-1.5 py-0.5 rounded">Active</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="text-[10px] font-medium text-slate-600">Role Title</div>
+            <div className="p-1.5 bg-slate-50 rounded border border-slate-200 text-[10px] text-slate-800">
+              Frontend Developer Intern
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <div className="text-[10px] font-medium text-slate-600">Eligible Campuses</div>
+            <div className="p-1.5 bg-slate-50 rounded border border-slate-200 text-[10px] text-slate-800">
+              IIT, NIT, BITS + 120 more
+            </div>
+          </div>
+          <div className="bg-sky-600 text-white text-center py-1.5 rounded-lg text-[10px] font-bold mt-2">
+            Publish Drive
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "screen-3",
+      title: "Campus Feed",
+      user: "Unified Ecosystem",
+      badge: "Explore",
+      content: (
+        <div className="p-3 text-slate-800 text-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[10px] text-slate-400">CampusPe Ecosystem</div>
+              <div className="font-bold text-xs">Trending Campuses</div>
+            </div>
+            <div className="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-bold">
+              CP
+            </div>
+          </div>
+          <div className="flex gap-1 overflow-x-auto text-[9px]">
+            <span className="bg-sky-600 text-white px-2 py-0.5 rounded-full">Colleges</span>
+            <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Jobs</span>
+            <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Internships</span>
+          </div>
+          <div className="bg-white rounded-xl border border-slate-100 p-2 shadow-2xs space-y-1">
+            <div className="w-full h-16 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-[10px]">
+              Victory College Campus
+            </div>
+            <div className="font-bold text-[10px] text-slate-900">Victory College of Engg</div>
+            <div className="text-[9px] text-slate-400">B.Tech • Mechanical & CSE</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "screen-4",
+      title: "My Applications",
+      user: "Status Tracker",
+      badge: "Applications",
+      content: (
+        <div className="p-3 text-slate-800 text-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div className="font-bold text-xs">My Applications</div>
+            <span className="text-[9px] text-sky-600 font-bold">4 Active</span>
+          </div>
+          <div className="space-y-2">
+            <div className="p-2 bg-slate-50 rounded-lg border border-slate-100 text-[10px] space-y-1">
+              <div className="flex justify-between font-bold">
+                <span>Google India</span>
+                <span className="text-emerald-600">Interviewing</span>
+              </div>
+              <div className="text-slate-400 text-[9px]">Round 2 Tech • Tomorrow 3 PM</div>
+            </div>
+            <div className="p-2 bg-slate-50 rounded-lg border border-slate-100 text-[10px] space-y-1">
+              <div className="flex justify-between font-bold">
+                <span>Razorpay</span>
+                <span className="text-sky-600">Under Review</span>
+              </div>
+              <div className="text-slate-400 text-[9px]">Applied 2 days ago</div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "screen-5",
+      title: "College Directory",
+      user: "Institutions",
+      badge: "Colleges",
+      content: (
+        <div className="p-3 text-slate-800 text-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div className="font-bold text-xs">Top Rated Colleges</div>
+            <span className="text-[9px] text-slate-400">NIRF 2026</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="p-2 bg-white rounded-lg border border-slate-100 shadow-2xs text-[10px]">
+              <div className="font-bold text-slate-900">IIT Bombay</div>
+              <div className="text-slate-400 text-[9px]">Avg CTC ₹22.5 LPA • 100% Placement</div>
+            </div>
+            <div className="p-2 bg-white rounded-lg border border-slate-100 shadow-2xs text-[10px]">
+              <div className="font-bold text-slate-900">BITS Pilani</div>
+              <div className="text-slate-400 text-[9px]">Avg CTC ₹19.8 LPA • Verified Partner</div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <section
-      id="app-showcase"
-      className="py-24 relative overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(ellipse at 20% 50%, rgba(56,189,248,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(99,102,241,0.07) 0%, transparent 50%), #f8fafc",
-      }}
-    >
-      <div className="absolute top-0 left-1/4 w-96 h-64 bg-sky-200/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-64 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
+    <section id="app-showcase" className="py-20 bg-slate-50/40 relative overflow-hidden border-t border-slate-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Title */}
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-sky-600 tracking-tight mb-4">
+          Checkout Our App Interface Look
+        </h2>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/80 text-sky-800 text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-            <span>Platform Preview</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            See CampusPe{" "}
-            <span className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              in Action
-            </span>
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-4 font-normal">
-            Explore every section of the CampusPe platform — from AI-powered job matching to mobile
-            app download and college discovery.
-          </p>
-        </div>
+        {/* Subtitle */}
+        <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mx-auto leading-relaxed mb-12">
+          Experience the power of a unified campus ecosystem right in your pocket.{" "}
+          <strong className="text-slate-800">CampusPe</strong> offers a tailored interface for every user: students can explore trending courses, colleges can showcase their campus life, and companies can post job vacancies directly to a pool of qualified candidates.
+        </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div className="lg:col-span-4 space-y-5">
-            <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-lg shadow-slate-200/40">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold border ${current.badgeColor}`}
-                >
-                  {current.badge}
-                </span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 leading-snug mb-2">
-                {current.title}
-              </h3>
-              <p className="text-xs text-sky-600 font-semibold mb-3 italic">
-                &ldquo;{current.tagline}&rdquo;
-              </p>
-              <p className="text-sm text-slate-600 leading-relaxed">{current.description}</p>
-
-              <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-                <span>
-                  Screen{" "}
-                  <span className="font-bold text-slate-700">{activeSlide + 1}</span> of{" "}
-                  {screens.length}
-                </span>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={handlePrev}
-                    aria-label="Previous"
-                    className="w-7 h-7 rounded-full flex items-center justify-center bg-slate-100 hover:bg-sky-100 hover:text-sky-600 transition-colors cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    aria-label="Next"
-                    className="w-7 h-7 rounded-full flex items-center justify-center bg-slate-100 hover:bg-sky-100 hover:text-sky-600 transition-colors cursor-pointer"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-4 gap-2">
-              {screens.map((s, idx) => (
-                <button
-                  key={s.id}
-                  onClick={() => goTo(idx)}
-                  aria-label={`Go to ${s.title}`}
-                  className={`relative rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-200 ${
-                    idx === activeSlide
-                      ? "border-sky-500 shadow-md shadow-sky-500/20 scale-105"
-                      : "border-transparent hover:border-sky-300 opacity-60 hover:opacity-90"
+        {/* 5 Smartphone Carousel Frames */}
+        <div className="relative max-w-6xl mx-auto overflow-hidden py-4">
+          <div className="flex items-center justify-center gap-4 sm:gap-6">
+            {phoneScreens.map((screen, idx) => {
+              const isCenter = idx === activeIdx;
+              return (
+                <div
+                  key={screen.id}
+                  onClick={() => setActiveIdx(idx)}
+                  className={`transition-all duration-300 cursor-pointer shrink-0 ${
+                    isCenter
+                      ? "scale-105 sm:scale-110 z-20 shadow-2xl shadow-sky-500/20"
+                      : "scale-90 sm:scale-95 opacity-60 hover:opacity-90 z-10 hidden md:block"
                   }`}
-                  style={{ aspectRatio: "16/9" }}
+                  style={{ width: "230px" }}
                 >
-                  <img
-                    src={s.src}
-                    alt={s.title}
-                    className="w-full h-full object-cover object-top"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
+                  {/* Smartphone Frame */}
+                  <div className="rounded-[36px] p-2.5 bg-slate-900 shadow-xl border-4 border-slate-800 relative">
+                    {/* Dynamic Island / Notch */}
+                    <div className="w-16 h-3.5 bg-black rounded-full mx-auto mb-1 flex items-center justify-end px-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-800 inline-block" />
+                    </div>
 
-          <div
-            className="lg:col-span-8"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-sky-500/10 border border-slate-200/80 bg-white">
-              <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 border-b border-slate-200/80">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-400" />
-                  <span className="w-3 h-3 rounded-full bg-amber-400" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                </div>
-                <div className="flex-1 mx-3">
-                  <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-1.5 border border-slate-200 text-xs text-slate-500 max-w-sm mx-auto">
-                    <svg className="w-3 h-3 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <span className="font-medium text-slate-600">campuspe.com</span>
-                    <span className="text-slate-300 truncate text-[10px]">
-                      {activeSlide === 0 ? "" : activeSlide === 1 ? "#opportunities" : activeSlide === 2 ? "#resume-parser" : activeSlide === 3 ? "#colleges" : activeSlide === 4 ? "#app-showcase" : activeSlide === 5 ? "#download" : "#footer"}
-                    </span>
+                    {/* Phone Screen Glass */}
+                    <div className="bg-white rounded-[26px] overflow-hidden min-h-[360px] flex flex-col justify-between">
+                      {screen.content}
+
+                      {/* Phone Home Bar */}
+                      <div className="w-16 h-1 bg-slate-300 rounded-full mx-auto mb-2" />
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-400">
-                  <span className={`w-2 h-2 rounded-full ${isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse"}`} />
-                  {isPaused ? "Paused" : "Auto"}
-                </div>
-              </div>
-
-              <div className="relative overflow-hidden bg-slate-100" style={{ aspectRatio: "16/9" }}>
-                {screens.map((s, idx) => (
-                  <img
-                    key={s.id}
-                    src={s.src}
-                    alt={s.title}
-                    className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 ${
-                      idx === activeSlide
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-[1.02] pointer-events-none"
-                    }`}
-                  />
-                ))}
-
-                <button
-                  onClick={handlePrev}
-                  aria-label="Previous screen"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm shadow-md border border-slate-200/60 flex items-center justify-center text-slate-600 hover:text-sky-600 hover:scale-110 active:scale-95 transition-all z-10 cursor-pointer"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={handleNext}
-                  aria-label="Next screen"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm shadow-md border border-slate-200/60 flex items-center justify-center text-slate-600 hover:text-sky-600 hover:scale-110 active:scale-95 transition-all z-10 cursor-pointer"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-3 flex items-center gap-1.5">
-              {screens.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => goTo(idx)}
-                  aria-label={`Go to slide ${idx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    idx === activeSlide
-                      ? "flex-1 bg-sky-500"
-                      : "w-5 bg-slate-200 hover:bg-slate-300"
-                  }`}
-                />
-              ))}
-            </div>
+              );
+            })}
           </div>
+
+          {/* Nav arrows on mobile */}
+          <button
+            onClick={() => setActiveIdx((prev) => (prev > 0 ? prev - 1 : phoneScreens.length - 1))}
+            className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-700"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setActiveIdx((prev) => (prev < phoneScreens.length - 1 ? prev + 1 : 0))}
+            className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-700"
+            aria-label="Next"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* 5 Dot Pagination */}
+        <div className="flex items-center justify-center gap-2 mt-8">
+          {phoneScreens.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveIdx(idx)}
+              className={`rounded-full transition-all duration-200 cursor-pointer ${
+                idx === activeIdx ? "w-6 h-2 bg-sky-600" : "w-2 h-2 bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
